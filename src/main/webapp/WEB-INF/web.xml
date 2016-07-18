@@ -1,0 +1,39 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>mybatis-test</display-name>
+
+	<!-- 加载spring容器，web服务器启动时加载它。 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<!-- 如果要放在config文件夹下，必须配置deployment assembly，把config添加为WEB-INF/classes -->
+		<param-value>/WEB-INF/classes/spring/spring-*.xml</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- 监听web服务器生命周期 -->
+	<listener>
+		<listener-class>com.lzm.app.WebInitContextListener</listener-class>
+	</listener>
+
+	<!-- 配置请求转发器 -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/spring-mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+
+</web-app>
